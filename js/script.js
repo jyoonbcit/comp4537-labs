@@ -120,6 +120,45 @@ class ButtonGame {
     }
 
     /*
+        Allow buttons to be clicked.
+    */
+    attachClickHandlers() {
+        this.buttons.forEach(button => {
+            button.btn.addEventListener("click", () => {
+                this.clickOrder.push(button.id);
+                for (let click = 0; click < this.clickOrder.length; click++) {
+                    if (this.clickOrder[click] != click + 1) {
+                        this.buttons.forEach(item => {
+                            item.btn.innerHTML = item.id;
+                        })
+                        this.lose();
+                    } else if (this.clickOrder.length == this.buttons.length) {
+                        button.btn.innerHTML = button.id;
+                        this.win();
+                        break;
+                    } else {
+                        button.btn.innerHTML = button.id;
+                    }
+                }
+            })
+        });
+    }
+
+    win() {
+        alert(MESSAGES.WIN);
+        setTimeout(() => {
+            this.resetGame();
+        }, 2000);
+    }
+
+    lose() {
+        alert(MESSAGES.LOSE);
+        setTimeout(() => {
+            this.resetGame();
+        }, 2000);
+    }
+
+    /*
         Reset the game screen.
     */
     resetGame() {
