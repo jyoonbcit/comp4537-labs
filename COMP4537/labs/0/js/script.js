@@ -88,12 +88,13 @@ class ButtonGame {
             console.log(iterationCounter, this.buttons.length);
             if (iterationCounter > this.buttons.length) {
                 this.attachClickHandlers();
-                this.buttons.forEach(button => {
-                    button.btn.innerHTML = "";
-                });
                 clearInterval(shuffling);
             } else {
-                this.shuffleButtonsOnce();
+                if (iterationCounter == this.buttons.length) {
+                    this.buttons.forEach(button => {
+                        button.btn.innerHTML = "";
+                    });
+                } this.shuffleButtonsOnce();
             }
         }, BUTTON_SHUFFLE_INTERVAL);
     }
