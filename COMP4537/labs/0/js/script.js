@@ -88,6 +88,9 @@ class ButtonGame {
             console.log(iterationCounter, this.buttons.length);
             if (iterationCounter > this.buttons.length) {
                 this.attachClickHandlers();
+                this.buttons.forEach(button => {
+                    button.btn.innerHTML = "";
+                });
                 clearInterval(shuffling);
             } else {
                 this.shuffleButtonsOnce();
@@ -106,7 +109,6 @@ class ButtonGame {
             const BUTTON_HEIGHT = 150;
             const top = Math.floor(Math.random() * (window.innerHeight - BUTTON_HEIGHT));
             const left = Math.floor(Math.random() * (window.innerWidth - BUTTON_WIDTH));
-            button.btn.innerHTML = "";
             button.setLocation(`${top}px`, `${left}px`);
         }
     }
@@ -146,6 +148,9 @@ class ButtonGame {
         });
     }
 
+    /*
+        Display a win message and reset the game screen.
+    */
     win() {
         alert(MESSAGES.WIN);
         setTimeout(() => {
@@ -153,6 +158,9 @@ class ButtonGame {
         }, 2000);
     }
 
+    /*
+        Display a lose message and reset the game screen.
+    */
     lose() {
         alert(MESSAGES.LOSE);
         setTimeout(() => {
