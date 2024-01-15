@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jihoon Y.'s Lab 0</title>
+    <title id="title"></title>
     <link type="text/css" rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
+    <script src="js/script.js" type="module"></script>
 </head>
 <body>
     <div id="createBtnDiv">
-        <!-- TODO: Remove hardcoded string -->
-        <p> How many buttons to create? </p>
+        <label id="goBtnInputLabel" for="goBtnInput"></label><br>
         <input type="text" id="goBtnInput" name="goBtnInput">
-        <input type="submit" id="goBtn" value="Go!">
+        <input type="submit" id="goBtn">
     </div>
-
     <div id="btnContainer"></div>
 </body>
 </html>
