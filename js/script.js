@@ -17,7 +17,10 @@ class Button {
     constructor(order, color, width, height, top, left) {
         this.btn = document.createElement("button");
         this.btn.setAttribute("id", `btn${order}`);
-        this.btn.setAttribute("style", `background-color:${color}; width:${width}; height:${height}; top:${top}; left:${left}; position:absolute;`);
+        this.btn.style.backgroundColor = color;
+        this.btn.style.width = width;
+        this.btn.style.height = height;
+        this.btn.style.position = "absolute";
         this.btn.innerHTML = order;
         this.setLocation(top, left)
     }
@@ -51,12 +54,11 @@ class ButtonGame {
     createButtons(requested) {
         this.resetGame();
         for (let num = 1; num <= requested; num++) {
-            // TODO: Make sure they generate in bounds. Currently they do, but I don't know why...
-            let button = new Button(num, this.generateRandomColor(), "10em", "5em", "7em", `${10*(num - 1) + 1}em`);
+            let button = new Button(num, this.generateRandomColor(), "10em", "5em", "7em", `${10 * (num - 1) + 1}em`);
             this.buttons.push(button);
         }
         this.displayButtons();
-        this.shuffleButtons();
+        this.shuffleButtonsMultipleTimes();
     }
 
     /*
@@ -70,20 +72,35 @@ class ButtonGame {
     }
 
     /*
-        Shuffle buttons around boundaries of the browser window.
+        Shuffle buttons around boundaries of the browser window repeatedly.
     */
-    shuffleButtons() {
+    shuffleButtonsMultipleTimes() {
+        let iterationCounter = 0;
         // We use () => {} instead of function() {} because function() creates its own scope and we want to use the scope of the class.
-        setInterval(() => {
-            // TODO: Remove console.log
-            console.log("Shuffling buttons...");
-            for (let num = 0; num < this.buttons.length; num++) {
-                let top = 100 - Math.floor(Math.random() * 100);
-                let left = 100 - Math.floor(Math.random() * 100);
-                let button = this.buttons[num];
-                button.setLocation(`${top}%`, `${left}%`);
+        const shuffling = setInterval(() => {
+            iterationCounter++;
+            console.log(iterationCounter, this.buttons.length);
+            if (iterationCounter > this.buttons.length) {
+                clearInterval(shuffling);
+            } else {
+                this.shuffleButtonsOnce();
             }
         }, 1000*this.buttons.length);
+    }
+
+    /*
+        Shuffle buttons around boundaries of the browser window.
+    */
+    shuffleButtonsOnce() {
+        for (let num = 0; num < this.buttons.length; num++) {
+            const button = this.buttons[num];
+            // Arbitrary button width and height to make sure they don't go out of bounds.
+            const BUTTON_WIDTH = 150;
+            const BUTTON_HEIGHT = 150;
+            const top = Math.floor(Math.random() * (window.innerHeight - BUTTON_HEIGHT));
+            const left = Math.floor(Math.random() * (window.innerWidth - BUTTON_WIDTH));
+            button.setLocation(`${top}px`, `${left}px`);
+        }
     }
 
     /*
