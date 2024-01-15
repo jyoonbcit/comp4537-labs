@@ -1,6 +1,8 @@
 // Author: Jihoon Yoon
 // A01322277
 
+import MESSAGES from '../lang/messages/en/user.js';
+
 /*
     Button class.
 */
@@ -16,12 +18,12 @@ class Button {
     */
     constructor(order, color, width, height, top, left) {
         this.btn = document.createElement("button");
-        this.btn.setAttribute("id", `btn${order}`);
         this.btn.style.backgroundColor = color;
         this.btn.style.width = width;
         this.btn.style.height = height;
         this.btn.style.position = "absolute";
         this.btn.innerHTML = order;
+        this.id = order;
         this.setLocation(top, left)
     }
 
@@ -45,6 +47,7 @@ class ButtonGame {
     */
     constructor() {
         this.buttons = [];
+        this.clickOrder = [];
     }
 
     /*
@@ -68,7 +71,7 @@ class ButtonGame {
         let red = Math.floor(Math.random() * 256);
         let green = Math.floor(Math.random() * 256);
         let blue = Math.floor(Math.random() * 256);
-        return "rgb(" + red + "," + green + "," + blue + ")";
+        return `rgb(${red}, ${green}, ${blue})`;
     }
 
     /*
@@ -76,16 +79,18 @@ class ButtonGame {
     */
     shuffleButtonsMultipleTimes() {
         let iterationCounter = 0;
+        const BUTTON_SHUFFLE_INTERVAL = 2000;
         // We use () => {} instead of function() {} because function() creates its own scope and we want to use the scope of the class.
         const shuffling = setInterval(() => {
             iterationCounter++;
             console.log(iterationCounter, this.buttons.length);
             if (iterationCounter > this.buttons.length) {
+                this.attachClickHandlers();
                 clearInterval(shuffling);
             } else {
                 this.shuffleButtonsOnce();
             }
-        }, 1000*this.buttons.length);
+        }, BUTTON_SHUFFLE_INTERVAL);
     }
 
     /*
@@ -99,6 +104,7 @@ class ButtonGame {
             const BUTTON_HEIGHT = 150;
             const top = Math.floor(Math.random() * (window.innerHeight - BUTTON_HEIGHT));
             const left = Math.floor(Math.random() * (window.innerWidth - BUTTON_WIDTH));
+            button.btn.innerHTML = "";
             button.setLocation(`${top}px`, `${left}px`);
         }
     }
@@ -118,6 +124,7 @@ class ButtonGame {
     */
     resetGame() {
         this.buttons = [];
+        this.clickOrder = [];
         document.getElementById("btnContainer").innerHTML = "";
         document.getElementById("goBtnInput").value = "";
     }
@@ -134,3 +141,7 @@ document.addEventListener("DOMContentLoaded", function() {
         BG.createButtons(requested);
     });
 });
+
+document.getElementById("title").innerHTML = MESSAGES.TITLE;
+document.getElementById("goBtn").value = MESSAGES.GO_BTN_VALUE;
+document.getElementById("goBtnInputLabel").innerHTML = MESSAGES.GO_BTN_INPUT_LABEL;
