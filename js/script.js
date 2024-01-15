@@ -105,3 +105,15 @@ class ButtonGame {
         document.getElementById("goBtnInput").value = "";
     }
 }
+
+// Start by creating a new game when page loads.
+const BG = new ButtonGame();
+
+// Button listener for the go button.
+// DISCLAIMER: ChatGPT was used for the DOMContentLoaded event listener wrapper (however, not the code inside).
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("goBtn").addEventListener("click", function() {
+        let requested = document.getElementById("goBtnInput").value;
+        BG.createButtons(requested);
+    });
+});
