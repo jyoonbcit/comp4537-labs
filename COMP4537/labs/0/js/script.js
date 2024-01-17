@@ -187,10 +187,8 @@ const BG = new ButtonGame();
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("goBtn").addEventListener("click", function() {
         let requested = document.getElementById("goBtnInput").value;
-        if (requested < 3 || requested > 7 || !(Number.isInteger(requested))) {
-            alert(MESSAGES.INVALID_INPUT);
-            return;
-        }
+        alert(MESSAGES.INVALID_INPUT);
+        return;
         BG.createButtons(requested);
     });
 });
