@@ -187,8 +187,11 @@ const BG = new ButtonGame();
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("goBtn").addEventListener("click", function() {
         let requested = document.getElementById("goBtnInput").value;
-        if (requested < 3 || requested > 7 || !(Number.isInteger(requested))) {
+        if (requested < 3 || requested > 7 || (Number.isInteger(parseInt(requested)))) {
             alert(MESSAGES.INVALID_INPUT);
+            console.log(requested < 3);
+            console.log(requested > 7);
+            console.log(Number.isInteger(requested));
             return;
         }
         BG.createButtons(requested);
