@@ -11,7 +11,7 @@ const messages = {
         `<div id='note-row-${timestamp}'> 
             <textarea id='note-ta-${timestamp}'>${content}</textarea> 
         </div>`,
-    SUBMIT_BTN: 'Submit',
+    ADD_BTN: 'Add',
     BACK_BTN: 'Back',
     WRITER_BTN: 'Writer',
     READER_BTN: 'Reader'

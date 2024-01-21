@@ -5,9 +5,9 @@ class NoteManager {
         this.noteArray = [];
     }
 
-    add(content) {
+    add() {
         let currTime = Date.now();
-        let note = {timestamp: currTime, content: content};
+        let note = {timestamp: currTime, content: ""};
         this.noteArray.push(note);
         if (localStorage.getItem('notes') == null) {
             localStorage.setItem('notes', JSON.stringify(this.noteArray));
@@ -83,16 +83,13 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("storage-time").innerHTML = messages.STORAGE_TIME + localStorage.getItem('lastStored');
     }
     document.getElementById("title").innerHTML = messages.TITLE;
-    document.getElementById("submit-btn").addEventListener("click", () => {
-        let content = document.getElementById("new-note").value;
-        noteManager.add(content);
-        // Clears the input field after submission.
-        document.getElementById("new-note").value = "";
+    document.getElementById("add-btn").addEventListener("click", () => {
+        noteManager.add();
     });
     document.getElementById("back-btn").addEventListener("click", () => {
         location.href = "index.html";
     });
-    document.getElementById("submit-btn").innerHTML = messages.SUBMIT_BTN;
+    document.getElementById("add-btn").innerHTML = messages.ADD_BTN;
     document.getElementById("back-btn").innerHTML = messages.BACK_BTN;
 });
 
