@@ -20,7 +20,6 @@ class NoteManager {
         this.updateNotes();
     }
 
-    // TODO: Interval
     updateNotes() {
         let notesDiv = document.getElementById("notes");
         notesDiv.innerHTML = "";
