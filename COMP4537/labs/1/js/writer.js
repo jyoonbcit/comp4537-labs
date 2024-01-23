@@ -42,7 +42,7 @@ class NoteManager {
         document.getElementById(`remove${timestamp}`).addEventListener("click", () => {
             let notes = JSON.parse(localStorage.getItem('notes'));
             for (let i = 0; i < notes.length; i++) {
-                if (notes[i].timestamp == timestamp) {
+                if (notes[i].timestamp === timestamp) {
                     notes.splice(i, 1);
                     break;
                 }
@@ -57,7 +57,7 @@ class NoteManager {
         document.getElementById(`note-ta-${timestamp}`).addEventListener("change", () => {
             let notes = JSON.parse(localStorage.getItem('notes'));
             for (let i = 0; i < notes.length; i++) {
-                if (notes[i].timestamp == timestamp) {
+                if (notes[i].timestamp === timestamp) {
                     notes[i].content = document.getElementById(`note-ta-${timestamp}`).value;
                     break;
                 }
